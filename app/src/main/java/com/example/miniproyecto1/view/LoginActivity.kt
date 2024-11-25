@@ -44,7 +44,6 @@ class LoginActivity : AppCompatActivity() {
         emailField.addTextChangedListener(textWatcher)
         passwordField.addTextChangedListener(textWatcher)
 
-        // Email field validation (check for valid email format)
         emailField.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 val email = s.toString()
@@ -59,7 +58,6 @@ class LoginActivity : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
-        // Password field validation (password should be exactly 6 characters)
         passwordField.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 val password = s.toString()
@@ -73,12 +71,10 @@ class LoginActivity : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
-        // Button click to handle login process
         loginButton.setOnClickListener {
             val email = emailField.text.toString().trim()
             val password = passwordField.text.toString().trim()
 
-            // Validate empty fields and password length
             if (email.isEmpty() || password.isEmpty()) {
                 if (email.isEmpty()) {
                     emailLayout.error = "Por favor ingrese un correo"
@@ -97,7 +93,6 @@ class LoginActivity : AppCompatActivity() {
                 passwordLayout.error = "La contraseña debe tener exactamente 6 caracteres"
                 Toast.makeText(this, "La contraseña debe tener exactamente 6 caracteres", Toast.LENGTH_SHORT).show()
             } else {
-                // Clear errors when everything is valid
                 emailLayout.error = null
                 passwordLayout.error = null
 
@@ -107,6 +102,26 @@ class LoginActivity : AppCompatActivity() {
                         finish()
                     } else {
                         Toast.makeText(this, message ?: "Credenciales incorrectas", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
+
+        // Agregar funcionalidad de registro
+        registerTextView.setOnClickListener {
+            val email = emailField.text.toString().trim()
+            val password = passwordField.text.toString().trim()
+
+            if (email.isEmpty() || password.isEmpty()) {
+                Toast.makeText(this, "Por favor complete todos los campos para registrarse", Toast.LENGTH_SHORT).show()
+            } else if (password.length != 6) {
+                Toast.makeText(this, "La contraseña debe tener exactamente 6 caracteres", Toast.LENGTH_SHORT).show()
+            } else {
+                loginViewModel.register(email, password) { isSuccess, message ->
+                    if (isSuccess) {
+                        Toast.makeText(this, "Registro exitoso", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(this, message ?: "Error en el registro", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -126,14 +141,14 @@ class LoginActivity : AppCompatActivity() {
         loginButton.isEnabled = isValid
         registerTextView.isEnabled = isValid
 
-        // Change the color of the Register TextView when fields are valid
         if (isValid) {
-            registerTextView.setTextColor(getResources().getColor(R.color.white)) // Set to white color when enabled
+            registerTextView.setTextColor(resources.getColor(R.color.white))
         } else {
-            registerTextView.setTextColor(getResources().getColor(R.color.gray)) // Set to gray color when not enabled
+            registerTextView.setTextColor(resources.getColor(R.color.gray))
         }
     }
 }
+
 
 
 
