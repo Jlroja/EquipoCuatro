@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.miniproyecto1.R
 import com.example.miniproyecto1.databinding.FragmentHomeBinding
+
 import kotlin.random.Random
 
 class HomeFragment : Fragment() {
@@ -22,6 +23,7 @@ class HomeFragment : Fragment() {
     private var isAudioOn = true
     private lateinit var mediaPlayer: MediaPlayer
     private var countdownTimer: CountDownTimer? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

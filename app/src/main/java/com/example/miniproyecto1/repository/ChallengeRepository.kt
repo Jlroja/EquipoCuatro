@@ -2,13 +2,14 @@ package com.example.miniproyecto1.repository
 
 import android.content.Context
 import com.example.miniproyecto1.data.ChallengeDB
+import com.example.miniproyecto1.data.ChallengeDBFirebase
 import com.example.miniproyecto1.data.ChallengeDao
 import com.example.miniproyecto1.model.Challenge
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class ChallengeRepository(val context: Context) {
-    private var challengeDao:ChallengeDao = ChallengeDB.getDatabase(context).challengeDao()
+    private val challengeDao: ChallengeDBFirebase = ChallengeDBFirebase(context)
 
     suspend fun saveChallenge(challenge:Challenge){
         withContext(Dispatchers.IO){
@@ -24,7 +25,7 @@ class ChallengeRepository(val context: Context) {
 
     suspend fun deleteChallenge(challenge:Challenge){
         withContext(Dispatchers.IO){
-            challengeDao.deleteChallenge(challenge)
+            challengeDao.deleteChallenge(challenge.id)
         }
     }
 
