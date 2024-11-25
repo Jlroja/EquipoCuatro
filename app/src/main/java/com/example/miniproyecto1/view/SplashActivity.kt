@@ -24,7 +24,7 @@ class SplashActivity : AppCompatActivity() {
 
         splashScope.launch {
             delay(3000)
-            val intent = Intent(this@SplashActivity, MainActivity::class.java) // Cambiado a MainActivity
+            val intent = Intent(this@SplashActivity, LoginActivity::class.java) // Cambiado a MainActivity
             startActivity(intent)
             finish()
         }
