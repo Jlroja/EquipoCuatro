@@ -1,6 +1,7 @@
 package com.example.miniproyecto1.view
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -32,6 +33,7 @@ class LoginActivity : AppCompatActivity() {
         val loginButton: Button = findViewById(R.id.btnLogin)
         val registerTextView: TextView = findViewById(R.id.tvRegister)
 
+        // Inicializar validación de campos
         validateFields(emailField, passwordField, loginButton, registerTextView)
 
         val textWatcher = object : TextWatcher {
@@ -46,6 +48,7 @@ class LoginActivity : AppCompatActivity() {
         emailField.addTextChangedListener(textWatcher)
         passwordField.addTextChangedListener(textWatcher)
 
+        // Validación del campo de correo
         emailField.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 val email = s.toString()
@@ -60,6 +63,7 @@ class LoginActivity : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
+        // Validación del campo de contraseña
         passwordField.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 val password = s.toString()
@@ -73,6 +77,7 @@ class LoginActivity : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
+        // Acciones cuando se hace clic en el botón de login
         loginButton.setOnClickListener {
             val email = emailField.text.toString().trim()
             val password = passwordField.text.toString().trim()
@@ -130,6 +135,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    // Función para validar los campos de email y password
     private fun validateFields(
         emailField: TextInputEditText,
         passwordField: TextInputEditText,
@@ -138,18 +144,30 @@ class LoginActivity : AppCompatActivity() {
     ) {
         val email = emailField.text.toString().trim()
         val password = passwordField.text.toString().trim()
-        val isValid = email.isNotBlank() && password.isNotBlank()
 
+        // Validar si ambos campos están llenos y son correctos
+        val isValid = email.isNotBlank() && password.isNotBlank() && password.length == 6
+
+        // Habilitar o deshabilitar los botones
         loginButton.isEnabled = isValid
         registerTextView.isEnabled = isValid
 
-        if (isValid) {
-            registerTextView.setTextColor(resources.getColor(R.color.white))
+        // Crear ColorStateList con opacidad
+        val textColor = if (isValid) {
+            Color.parseColor("#FFFFFF") // Color blanco completamente opaco
         } else {
-            registerTextView.setTextColor(resources.getColor(R.color.gray))
+            Color.parseColor("#80FFFFFF") // Blanco con 50% de opacidad
         }
+
+        // Establecer el color del texto del botón de login
+        loginButton.setTextColor(textColor)
+
+        // Cambiar la opacidad solo del texto del TextView de registro
+        registerTextView.setTextColor(if (isValid) resources.getColor(R.color.white) else resources.getColor(R.color.gray))
     }
 }
+
+
 
 
 
