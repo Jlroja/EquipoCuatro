@@ -12,7 +12,7 @@
         <!-- Toolbar en la parte superior -->
         <LinearLayout
             android:id="@+id/linear_layout"
-            android:layout_width="360dp"
+            android:layout_width="370dp"
             android:layout_height="60dp"
             android:layout_marginTop="35dp"
             android:gravity="center"
