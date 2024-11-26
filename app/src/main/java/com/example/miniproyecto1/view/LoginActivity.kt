@@ -1,5 +1,4 @@
 package com.example.miniproyecto1.view
-
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
