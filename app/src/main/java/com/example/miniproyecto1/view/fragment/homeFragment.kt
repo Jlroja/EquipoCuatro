@@ -11,6 +11,8 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.RotateAnimation
 import android.widget.Toast
+import android.animation.ValueAnimator
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.miniproyecto1.R
@@ -20,6 +22,7 @@ import kotlin.random.Random
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private var isAudioOn = true
+    private lateinit var blinkAnimator: ValueAnimator
     private lateinit var mediaPlayer: MediaPlayer
     private var countdownTimer: CountDownTimer? = null
 
@@ -37,20 +40,60 @@ class HomeFragment : Fragment() {
 
         mediaPlayer = MediaPlayer.create(requireContext(), R.raw.fondo_musica)
 
+        // Configurar el animador de parpadeo
+        blinkAnimator = ValueAnimator.ofFloat(0.5f, 1f).apply {
+            duration = 800 // Duración de un ciclo (0.8 segundos)
+            repeatMode = ValueAnimator.REVERSE
+            repeatCount = ValueAnimator.INFINITE
+            addUpdateListener { animation ->
+                val alphaValue = animation.animatedValue as Float
+                binding.spinButton.alpha = alphaValue
+            }
+        }
+        blinkAnimator.start() // Iniciar el parpadeo del botón
+
         setupAudioToggle()
         navigationFragmentB()
         navigationInstruccionFragment()
         navigationChallengeFragment()
         shareFunction()
 
-        // Iniciar la cuenta regresiva y animación al presionar el botón de giro
+
         binding.spinButton.setOnClickListener {
+            blinkAnimator.cancel() // Detener el parpadeo al presionar el botón
+            binding.spinButton.alpha = 1f // Restaurar opacidad normal
+
+            // Cambiar transparencia
+            binding.spinButton.alpha = 0.5f
+
+            // Cambiar el color
+            binding.spinButton.setColorFilter(ContextCompat.getColor(requireContext(), R.color.nuevo_color))
+
+            // Animación de escala
+            binding.spinButton.animate()
+                .scaleX(0.8f)
+                .scaleY(0.8f)
+                .setDuration(200)
+                .withEndAction {
+                    binding.spinButton.animate()
+                        .scaleX(1f)
+                        .scaleY(1f)
+                        .setDuration(200)
+                        .start()
+
+                    // Restaurar transparencia y color después de la animación
+                    binding.spinButton.alpha = 1f
+                    binding.spinButton.clearColorFilter()
+                }
+                .start()
+
             if (!mediaPlayer.isPlaying && isAudioOn) {
                 mediaPlayer.start()
             }
             reiniciarCuentaRegresiva()
         }
     }
+
 
     // Función de animación
     private fun animarIcono(view: View) {
