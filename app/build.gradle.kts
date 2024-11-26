@@ -4,6 +4,7 @@ plugins {
     id("com.google.devtools.ksp")
     id ("kotlin-kapt")
     id("com.google.gms.google-services")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -81,4 +82,7 @@ dependencies {
     //Glide
     implementation (libs.glide)
 
+
+    implementation("com.google.dagger:hilt-android:2.47")
+    kapt("com.google.dagger:hilt-android-compiler:2.47")
 }

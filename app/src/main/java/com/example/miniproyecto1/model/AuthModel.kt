@@ -1,11 +1,9 @@
 package com.example.miniproyecto1.model
 
 import com.google.firebase.auth.FirebaseAuth
+import javax.inject.Inject
 
-class AuthModel {
-
-    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
-
+class AuthModel @Inject constructor(private val auth: FirebaseAuth) {
 
     fun login(email: String, password: String, callback: (Boolean, String) -> Unit) {
         auth.signInWithEmailAndPassword(email, password)
@@ -13,11 +11,10 @@ class AuthModel {
                 if (task.isSuccessful) {
                     callback(true, "Login exitoso")
                 } else {
-                    callback(false, "Login incorrecto: ${task.exception?.message}")
+                    callback(false, "Login incorrecto: ${task.exception?.message ?: "Error desconocido"}")
                 }
             }
     }
-
 
     fun register(email: String, password: String, callback: (Boolean, String) -> Unit) {
         auth.createUserWithEmailAndPassword(email, password)
@@ -25,8 +22,9 @@ class AuthModel {
                 if (task.isSuccessful) {
                     callback(true, "Registro exitoso")
                 } else {
-                    callback(false, "Error en el registro: ${task.exception?.message}")
+                    callback(false, "Error en el registro: ${task.exception?.message ?: "Error desconocido"}")
                 }
             }
     }
 }
+

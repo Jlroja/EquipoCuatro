@@ -7,11 +7,18 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.miniproyecto1.model.Challenge
 import com.example.miniproyecto1.repository.ChallengeRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ChallengeViewModel(application: Application) : AndroidViewModel(application)  {
+@HiltViewModel
+class ChallengeViewModel @Inject constructor(
+    application: Application,
+    private val challengeRepository: ChallengeRepository // Inyección de dependencia
+) : AndroidViewModel(application) {
+
+    // Accedemos al contexto de la aplicación (ya inyectado a través de AndroidViewModel)
     val context = getApplication<Application>()
-    private val challengeRepository = ChallengeRepository(context)
 
     private val _listChallenge = MutableLiveData<MutableList<Challenge>>()
     val listChallenge: LiveData<MutableList<Challenge>> get() = _listChallenge
@@ -19,10 +26,9 @@ class ChallengeViewModel(application: Application) : AndroidViewModel(applicatio
     private val _progresState = MutableLiveData(false)
     val progresState: LiveData<Boolean> = _progresState
 
-
+    // Función para guardar un challenge
     fun saveChallenge(challenge: Challenge) {
         viewModelScope.launch {
-
             _progresState.value = true
             try {
                 challengeRepository.saveChallenge(challenge)
@@ -33,9 +39,9 @@ class ChallengeViewModel(application: Application) : AndroidViewModel(applicatio
         }
     }
 
+    // Función para actualizar un challenge
     fun updateChallenge(challenge: Challenge) {
         viewModelScope.launch {
-
             _progresState.value = true
             try {
                 challengeRepository.updateChallenge(challenge)
@@ -46,9 +52,9 @@ class ChallengeViewModel(application: Application) : AndroidViewModel(applicatio
         }
     }
 
+    // Función para eliminar un challenge
     fun deleteChallenge(challenge: Challenge) {
         viewModelScope.launch {
-
             _progresState.value = true
             try {
                 challengeRepository.deleteChallenge(challenge)
@@ -59,7 +65,7 @@ class ChallengeViewModel(application: Application) : AndroidViewModel(applicatio
         }
     }
 
-
+    // Función para obtener la lista de challenges
     fun getListChallenge() {
         viewModelScope.launch {
             _progresState.value = true
@@ -69,7 +75,6 @@ class ChallengeViewModel(application: Application) : AndroidViewModel(applicatio
             } catch (e: Exception) {
                 _progresState.value = false
             }
-
         }
     }
 }

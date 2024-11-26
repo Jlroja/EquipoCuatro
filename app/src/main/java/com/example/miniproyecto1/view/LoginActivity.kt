@@ -14,7 +14,9 @@ import com.example.miniproyecto1.R
 import com.example.miniproyecto1.viewmodel.LoginViewModel
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
 
     private val loginViewModel: LoginViewModel by viewModels()

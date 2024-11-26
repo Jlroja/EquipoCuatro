@@ -1,10 +1,11 @@
 package com.example.miniproyecto1.repository
 
 import com.example.miniproyecto1.model.AuthModel
+import javax.inject.Inject
 
-class LoginRepository {
-
-    private val authModel = AuthModel()
+class LoginRepository @Inject constructor( // Hilt inyectará la dependencia de AuthModel
+    private val authModel: AuthModel  // Inyectamos AuthModel en lugar de crear una instancia manualmente
+) {
 
     // Función para iniciar sesión
     fun login(email: String, password: String, callback: (Boolean, String) -> Unit) {
@@ -16,3 +17,5 @@ class LoginRepository {
         authModel.register(email, password, callback)
     }
 }
+
+

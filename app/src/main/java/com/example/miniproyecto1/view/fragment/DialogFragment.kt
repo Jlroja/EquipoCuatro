@@ -14,11 +14,12 @@ import kotlin.concurrent.thread
 import java.net.URL
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import kotlin.random.Random
 
 
-
+@AndroidEntryPoint
 class DialogFragment : Fragment() {
     private lateinit var binding: FragmentDialogBinding
     private lateinit var db: ChallengeDB

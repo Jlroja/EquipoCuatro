@@ -15,9 +15,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.miniproyecto1.R
 import com.example.miniproyecto1.databinding.FragmentHomeBinding
+import dagger.hilt.android.AndroidEntryPoint
 
 import kotlin.random.Random
-
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private var isAudioOn = true
