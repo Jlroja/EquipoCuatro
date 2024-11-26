@@ -23,7 +23,8 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private var isAudioOn = true
     private lateinit var blinkAnimator: ValueAnimator
-    private lateinit var mediaPlayer: MediaPlayer
+    private lateinit var mediaPlayer: MediaPlayer // Para la música de fondo (lune.mp3)
+    private lateinit var bottleSoundPlayer: MediaPlayer // Para el sonido de la botella (fondo_musica.mp3)
     private var countdownTimer: CountDownTimer? = null
 
     override fun onCreateView(
@@ -38,9 +39,17 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mediaPlayer = MediaPlayer.create(requireContext(), R.raw.fondo_musica)
+        // Inicializa el MediaPlayer para la música de fondo "lune.mp3" (música de fondo)
+        mediaPlayer = MediaPlayer.create(requireContext(), R.raw.lune)
+        mediaPlayer.isLooping = true // Música de fondo en bucle
+        if (isAudioOn) {
+            mediaPlayer.start() // Inicia la música de fondo cuando el fragmento se crea
+        }
 
-        // Configurar el animador de parpadeo
+        // Inicializa el MediaPlayer para el sonido de la botella "fondo_musica.mp3"
+        bottleSoundPlayer = MediaPlayer.create(requireContext(), R.raw.fondo_musica)
+
+        // Configura el animador de parpadeo para el botón
         blinkAnimator = ValueAnimator.ofFloat(0.5f, 1f).apply {
             duration = 800 // Duración de un ciclo (0.8 segundos)
             repeatMode = ValueAnimator.REVERSE
@@ -52,13 +61,14 @@ class HomeFragment : Fragment() {
         }
         blinkAnimator.start() // Iniciar el parpadeo del botón
 
+        // Configurar otras funciones de navegación y compartir
         setupAudioToggle()
         navigationFragmentB()
         navigationInstruccionFragment()
         navigationChallengeFragment()
         shareFunction()
 
-
+        // Acción para presionar el botón de giro
         binding.spinButton.setOnClickListener {
             blinkAnimator.cancel() // Detener el parpadeo al presionar el botón
             binding.spinButton.alpha = 1f // Restaurar opacidad normal
@@ -87,15 +97,19 @@ class HomeFragment : Fragment() {
                 }
                 .start()
 
-            if (!mediaPlayer.isPlaying && isAudioOn) {
-                mediaPlayer.start()
+            // Detener la música de fondo y reproducir el sonido de la botella
+            if (mediaPlayer.isPlaying) {
+                mediaPlayer.pause() // Detener la música de fondo
             }
-            reiniciarCuentaRegresiva()
+            if (!bottleSoundPlayer.isPlaying) {
+                bottleSoundPlayer.start() // Reproducir el sonido de la botella
+            }
+
+            reiniciarCuentaRegresiva() // Reiniciar la cuenta regresiva
         }
     }
 
-
-    // Función de animación
+    // Función para animar los iconos (como ya lo tenías en tu código)
     private fun animarIcono(view: View) {
         view.animate()
             .scaleX(1.2f)
@@ -112,6 +126,7 @@ class HomeFragment : Fragment() {
             }.start()
     }
 
+    // Funciones de navegación y otras acciones
     private fun navigationChallengeFragment() {
         binding.iconChallenges.setOnClickListener {
             animarIcono(binding.iconChallenges)
@@ -159,14 +174,14 @@ class HomeFragment : Fragment() {
 
     private fun playAudio() {
         if (!mediaPlayer.isPlaying) {
-            mediaPlayer.start()
+            mediaPlayer.start() // Reanudar la música de fondo
         }
     }
 
     private fun pauseAudio() {
         if (mediaPlayer.isPlaying) {
-            mediaPlayer.pause()
-            mediaPlayer.seekTo(0)
+            mediaPlayer.pause() // Pausar la música de fondo
+            mediaPlayer.seekTo(0) // Reiniciar la canción
         }
     }
 
@@ -231,7 +246,8 @@ class HomeFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        mediaPlayer.release()
+        mediaPlayer.release() // Libera los recursos de la música de fondo
+        bottleSoundPlayer.release() // Libera los recursos del sonido de la botella
         countdownTimer?.cancel()
     }
 }
