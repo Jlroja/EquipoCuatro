@@ -44,6 +44,7 @@ class ChallengeViewModel @Inject constructor(
         viewModelScope.launch {
             _progresState.value = true
             try {
+                print("updateChallenge "+challenge.id)
                 challengeRepository.updateChallenge(challenge)
                 _progresState.value = false
             } catch (e: Exception) {

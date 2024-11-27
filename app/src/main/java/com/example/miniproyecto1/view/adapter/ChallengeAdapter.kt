@@ -21,6 +21,7 @@ class ChallengeAdapter(private val listChallenge:MutableList<Challenge>, private
     }
 
     override fun onBindViewHolder(holder: ChallengeViewHolder, position: Int) {
+        print("id challenge onBindViewHolder "+listChallenge[position].id)
         val challenge = listChallenge[position]
         holder.setItemChallenge(challenge)
     }

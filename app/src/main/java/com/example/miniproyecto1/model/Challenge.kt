@@ -4,10 +4,7 @@ package com.example.miniproyecto1.model
 import com.google.firebase.firestore.PropertyName
 import java.io.Serializable
 
-class Challenge(
-    @get:PropertyName("id")
-    val id: String = "",
-
-    @get:PropertyName("description") @set:PropertyName("description")
-    var description: String = ""
+data class Challenge(
+    var id: String = "",  // Asegúrate de que el id esté presente y sea mutable
+    var description: String = "",  // Otros campos del reto
 ) : Serializable

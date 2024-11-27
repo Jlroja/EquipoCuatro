@@ -20,6 +20,7 @@ class ChallengeRepository @Inject constructor(
 
     suspend fun updateChallenge(challenge: Challenge) {
         withContext(Dispatchers.IO) {
+            print("updateChallenge repository "+challenge.id)
             challengeDao.updateChallenge(challenge)
         }
     }
