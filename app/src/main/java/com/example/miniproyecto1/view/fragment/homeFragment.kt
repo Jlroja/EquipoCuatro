@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.miniproyecto1.R
 import com.example.miniproyecto1.databinding.FragmentHomeBinding
+import com.example.miniproyecto1.view.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 import kotlin.random.Random
@@ -70,6 +71,7 @@ class HomeFragment : Fragment() {
         navigationInstruccionFragment()
         navigationChallengeFragment()
         shareFunction()
+        setupLogoutButton()
 
 
         binding.spinButton.setOnClickListener {
@@ -244,6 +246,21 @@ class HomeFragment : Fragment() {
 
             override fun onAnimationRepeat(animation: Animation?) {}
         })
+    }
+    private fun setupLogoutButton() {
+        binding.login.setOnClickListener {
+
+            val sharedPreferences = requireContext().getSharedPreferences("UserPrefs", 0)
+            sharedPreferences.edit().clear().apply()
+
+
+            val intent = Intent(requireContext(), LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+
+
+            Toast.makeText(requireContext(), "Sesión cerrada", Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onDestroyView() {
