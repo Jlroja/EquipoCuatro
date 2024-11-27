@@ -10,6 +10,7 @@ import javax.inject.Inject
 
 class ChallengeDBFirebase @Inject constructor(
     private val context: Context
+
 ) {
     private val db = FirebaseFirestore.getInstance()
     private val challengeCollection = db.collection("challenges")

@@ -8,9 +8,9 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject // Asegúrate de importar esta anotación
 
 class ChallengeRepository @Inject constructor(
-    val context: Context // Asegúrate de tener la anotación aquí
-) {
+    val context: Context,
     private val challengeDao: ChallengeDBFirebase = ChallengeDBFirebase(context)
+) {
 
     suspend fun saveChallenge(challenge: Challenge) {
         withContext(Dispatchers.IO) {
