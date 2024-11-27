@@ -5,18 +5,19 @@ import com.example.miniproyecto1.model.Challenge
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.toObject
 import kotlinx.coroutines.tasks.await
+import javax.inject.Inject
 
 
-class ChallengeDBFirebase(private val context: Context)  {
+class ChallengeDBFirebase @Inject constructor(
+    private val context: Context,
+    //private val firestore: FirebaseFirestore
+) {
     private val db = FirebaseFirestore.getInstance()
     private val challengeCollection = db.collection("challenges")
 
-    //fun getChallengeCollection() = challengeCollection
     suspend fun saveChallenge(challenge: Challenge): String? {
-        println("save")
         return try {
             val documentRef = challengeCollection.add(challenge).await()
-            println(documentRef.id)
             documentRef.id
         } catch (e: Exception) {
             e.printStackTrace()
@@ -26,7 +27,7 @@ class ChallengeDBFirebase(private val context: Context)  {
 
     suspend fun getListChallenge(): MutableList<Challenge> {
         return try {
-            val querySnapshot = this.challengeCollection.get().await()
+            val querySnapshot = challengeCollection.get().await()
             querySnapshot.documents.mapNotNull { document ->
                 document.toObject<Challenge>()
             }.toMutableList()

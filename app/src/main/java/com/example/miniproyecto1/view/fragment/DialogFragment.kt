@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.example.miniproyecto1.R
-import com.example.miniproyecto1.data.ChallengeDB
+import com.example.miniproyecto1.data.ChallengeDBFirebase
 import com.example.miniproyecto1.databinding.FragmentDialogBinding
 import org.json.JSONObject
 import kotlin.concurrent.thread
@@ -16,22 +16,20 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 import kotlin.random.Random
 
 
 @AndroidEntryPoint
-class DialogFragment : Fragment() {
+class DialogFragment : Fragment()  {
     private lateinit var binding: FragmentDialogBinding
-    private lateinit var db: ChallengeDB
-
-
+    @Inject  lateinit var db: ChallengeDBFirebase
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentDialogBinding.inflate(inflater, container, false)
-        db = ChallengeDB.getDatabase(requireContext())
         return binding.root
     }
 
@@ -56,7 +54,7 @@ class DialogFragment : Fragment() {
 
 
     private suspend fun obtenerRetoAleatorioDesdeBD(): String {
-        val retos = db.challengeDao().getListChallenge()
+        val retos = db.getListChallenge()
         return if (retos.isNotEmpty()) {
             // Elegir un reto aleatorio
             retos[Random.nextInt(retos.size)].description // Asegúrate de que tu objeto Challenge tiene la propiedad `description`
