@@ -1,5 +1,6 @@
 package com.example.miniproyecto1.view.fragment
 
+import android.animation.ValueAnimator
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
@@ -11,6 +12,7 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.RotateAnimation
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.miniproyecto1.R
@@ -22,7 +24,9 @@ import kotlin.random.Random
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private var isAudioOn = true
+    private lateinit var blinkAnimator: ValueAnimator
     private lateinit var mediaPlayer: MediaPlayer
+    private lateinit var bottleSoundPlayer: MediaPlayer
     private var countdownTimer: CountDownTimer? = null
 
 
@@ -38,7 +42,28 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mediaPlayer = MediaPlayer.create(requireContext(), R.raw.fondo_musica)
+
+        mediaPlayer = MediaPlayer.create(requireContext(), R.raw.lune)
+        mediaPlayer.isLooping = true
+        if (isAudioOn) {
+            mediaPlayer.start()
+        }
+
+
+        bottleSoundPlayer = MediaPlayer.create(requireContext(), R.raw.fondo_musica)
+
+
+        blinkAnimator = ValueAnimator.ofFloat(0.5f, 1f).apply {
+            duration = 800
+            repeatMode = ValueAnimator.REVERSE
+            repeatCount = ValueAnimator.INFINITE
+            addUpdateListener { animation ->
+                val alphaValue = animation.animatedValue as Float
+                binding.spinButton.alpha = alphaValue
+            }
+        }
+        blinkAnimator.start()
+
 
         setupAudioToggle()
         navigationFragmentB()
@@ -46,11 +71,43 @@ class HomeFragment : Fragment() {
         navigationChallengeFragment()
         shareFunction()
 
-        // Iniciar la cuenta regresiva y animación al presionar el botón de giro
+
         binding.spinButton.setOnClickListener {
-            if (!mediaPlayer.isPlaying && isAudioOn) {
-                mediaPlayer.start()
+            blinkAnimator.cancel()
+            binding.spinButton.alpha = 1f
+
+
+            binding.spinButton.alpha = 0.5f
+
+
+            binding.spinButton.setColorFilter(ContextCompat.getColor(requireContext(), R.color.nuevo_color))
+
+
+            binding.spinButton.animate()
+                .scaleX(0.8f)
+                .scaleY(0.8f)
+                .setDuration(200)
+                .withEndAction {
+                    binding.spinButton.animate()
+                        .scaleX(1f)
+                        .scaleY(1f)
+                        .setDuration(200)
+                        .start()
+
+
+                    binding.spinButton.alpha = 1f
+                    binding.spinButton.clearColorFilter()
+                }
+                .start()
+
+
+            if (mediaPlayer.isPlaying) {
+                mediaPlayer.pause()
             }
+            if (!bottleSoundPlayer.isPlaying) {
+                bottleSoundPlayer.start()
+            }
+
             reiniciarCuentaRegresiva()
         }
     }
