@@ -6,10 +6,12 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.miniproyecto1.R
 import android.widget.ImageView
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class SplashActivity : AppCompatActivity() {
     private val splashScope = MainScope()
 
@@ -24,7 +26,7 @@ class SplashActivity : AppCompatActivity() {
 
         splashScope.launch {
             delay(3000)
-            val intent = Intent(this@SplashActivity, MainActivity::class.java) // Cambiado a MainActivity
+            val intent = Intent(this@SplashActivity, LoginActivity::class.java) // Cambiado a MainActivity
             startActivity(intent)
             finish()
         }

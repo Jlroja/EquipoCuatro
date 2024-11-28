@@ -9,7 +9,9 @@ import android.webkit.WebViewClient
 import androidx.navigation.fragment.findNavController
 import com.example.miniproyecto1.R
 import com.example.miniproyecto1.databinding.FragmentBBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FragmentB : Fragment() {
     private lateinit var binding: FragmentBBinding
 

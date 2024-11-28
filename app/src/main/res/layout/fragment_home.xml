@@ -12,7 +12,7 @@
         <!-- Toolbar en la parte superior -->
         <LinearLayout
             android:id="@+id/linear_layout"
-            android:layout_width="350dp"
+            android:layout_width="370dp"
             android:layout_height="60dp"
             android:layout_marginTop="35dp"
             android:gravity="center"
@@ -64,6 +64,16 @@
                 android:contentDescription="Share app"
                 android:src="@drawable/share_icon"
                 app:tint="@color/orange" />
+
+            <ImageView
+                android:id="@+id/login"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="16dp"
+                android:contentDescription="Login app"
+                android:src="@drawable/iconlogin"
+                app:tint="@color/orange"/>
+
         </LinearLayout>
 
         <!-- Imagen de la botella en el centro -->

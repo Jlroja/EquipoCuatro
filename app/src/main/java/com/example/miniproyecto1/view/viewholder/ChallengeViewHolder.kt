@@ -19,12 +19,18 @@ class ChallengeViewHolder(binding: ItemchallengesBinding, private val fragment: 
     fun setItemChallenge(challenge: Challenge) {
         bindingItem.textDescription.text = challenge.description
 
+        // Editar reto
         bindingItem.iconEdit.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putSerializable("clave", challenge)
-            DialogoEdit.showDialog(context = fragment.requireContext(),fragment, bundle).show()
-            //navController.navigate(R.id.action_homeFragment_to_challengeFragment, bundle)
+            val bundle = Bundle().apply {
+                putSerializable("clave", challenge) // Asegúrate de que Challenge es Serializable
+            }
+            DialogoEdit.showDialog(
+                context = fragment.requireContext(),
+                fragment,
+                bundle = bundle
+            ).show()
         }
+
 
         bindingItem.iconDelete.setOnClickListener{
 

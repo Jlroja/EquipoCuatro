@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="#000000">
+
+<!-- Título -->
+<TextView
+    android:id="@+id/tvTitle"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="pico botella"
+    android:textColor="#FF3D00"
+    android:textSize="32sp"
+    android:fontFamily="sans-serif-light"
+    android:layout_marginTop="60dp"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent" />
+
+<!-- Campo Email -->
+<com.google.android.material.textfield.TextInputLayout
+    android:id="@+id/tilEmail"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp"
+    app:layout_constraintTop_toBottomOf="@id/tvTitle"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintWidth_percent="0.8"
+    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    app:boxStrokeColor="#FFFFFF"
+    app:hintTextColor="#FFFFFF"
+    app:boxCornerRadiusTopStart="10dp"
+    app:boxCornerRadiusTopEnd="10dp"
+    app:boxCornerRadiusBottomStart="10dp"
+    app:boxCornerRadiusBottomEnd="10dp">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/etEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#B0B0B0"
+        android:padding="12dp"
+        android:maxLength="40"/>
+</com.google.android.material.textfield.TextInputLayout>
+
+<!-- Campo Contraseña -->
+<com.google.android.material.textfield.TextInputLayout
+    android:id="@+id/tilPassword"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="12dp"
+    app:layout_constraintTop_toBottomOf="@id/tilEmail"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintWidth_percent="0.8"
+    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    app:boxStrokeColor="#FFFFFF"
+    app:hintTextColor="#FFFFFF"
+    app:passwordToggleEnabled="true"
+    app:passwordToggleTint="#FFFFFF"
+    app:boxCornerRadiusTopStart="10dp"
+    app:boxCornerRadiusTopEnd="10dp"
+    app:boxCornerRadiusBottomStart="10dp"
+    app:boxCornerRadiusBottomEnd="10dp">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/etPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Password"
+        android:inputType="numberPassword"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#B0B0B0"
+        android:padding="12dp"
+        android:minEms="6"
+        android:maxEms="10"/>
+</com.google.android.material.textfield.TextInputLayout>
+
+<!-- Botón Login -->
+<Button
+    android:id="@+id/btnLogin"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp"
+    android:backgroundTint="#FF4500"
+    android:text="Login"
+    android:textColor="#FFFFFF"
+    android:textAllCaps="false"
+    android:fontFamily="sans-serif-medium"
+    android:layout_marginBottom="8dp"
+    android:padding="12dp"
+    app:layout_constraintTop_toBottomOf="@id/tilPassword"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintWidth_percent="0.8"
+    android:enabled="false" />
+
+<!-- Texto Registrarse -->
+<TextView
+    android:id="@+id/tvRegister"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Registrarse"
+    android:textColor="#9EA1A1"
+    android:textSize="14sp"
+    android:layout_marginTop="12dp"
+    app:layout_constraintTop_toBottomOf="@id/btnLogin"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    android:enabled="false" />
+
+<!-- Diseño de Ondas -->
+
+<ImageView
+    android:id="@+id/bottomWaveView"
+    android:layout_width="match_parent"
+    android:layout_height="350dp"
+    android:scaleType="fitXY"
+    android:src="@drawable/bottom_wave"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "299527664141",
+    "firebase_url": "https://pico-botella-75561-default-rtdb.firebaseio.com",
+    "project_id": "pico-botella-75561",
+    "storage_bucket": "pico-botella-75561.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:299527664141:android:fffda70e16ef034130db44",
+        "android_client_info": {
+          "package_name": "com.example.miniproyecto1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAm9WfviqTAhR3UOSdg3b03QwUxYKtwYNo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -14,12 +14,14 @@ import com.example.miniproyecto1.model.Challenge
 import com.example.miniproyecto1.view.adapter.ChallengeAdapter
 import com.example.miniproyecto1.view.dialog.DialogoAddChallegent
 import com.example.miniproyecto1.viewmodel.ChallengeViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * A simple [Fragment] subclass.
  * Use the [ChallengeFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+@AndroidEntryPoint
 class ChallengeFragment : Fragment() {
     private lateinit var binding: FragmentChallengeBinding
     private val challengeViewModel : ChallengeViewModel  by viewModels()
